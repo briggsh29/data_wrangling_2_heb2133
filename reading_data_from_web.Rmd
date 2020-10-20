@@ -118,4 +118,21 @@ brfss_2010 =
 
 ```
 
+#Some data aren't so nice
+
+Let's look at pokemon
+
+```{r}
+pokemon_data = 
+  GET("https://pokeapi.co/api/v2/pokemon/1") %>% 
+  content()
+#more complicated
+
+pokemon_data$name
+pokemon_data$height
+```
+
+#Closing thoughts
+
+everytime you knit - you request a server(API). if you're going to access that data a lot - have one r markdown file saying here is how i got and processed the data. and then any other analysis in another file that accesses your processed file. 
 
