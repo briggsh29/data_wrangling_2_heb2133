@@ -83,9 +83,30 @@ swm_df =
   )
 ```
 
+#APIs
+
+Get some water data
+
+https://data.cityofnewyork.us/Environment/Water-Consumption-In-The-New-York-City/ia2d-e54m
+
+```{r}
+nyc_water =
+  GET("https://data.cityofnewyork.us/resource/ia2d-e54m.csv") %>% 
+  content("parsed")
+
+#JSON structure?
+#Same data but diff structure
+nyc_water2 = 
+  GET("https://data.cityofnewyork.us/resource/ia2d-e54m.json") %>% 
+  content("text") %>% 
+  jsonlite::fromJSON() %>% 
+  as.tibble()
+```
+
 
 
 ```{r}
 
 ```
+
 

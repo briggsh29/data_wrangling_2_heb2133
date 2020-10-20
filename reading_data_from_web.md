@@ -5,14 +5,14 @@ Data Science Midterm
 library(tidyverse)
 ```
 
-    ## -- Attaching packages ------------------ tidyverse 1.3.0 --
+    ## -- Attaching packages -------- tidyverse 1.3.0 --
 
     ## v ggplot2 3.3.2     v purrr   0.3.4
     ## v tibble  3.0.3     v dplyr   1.0.2
     ## v tidyr   1.1.2     v stringr 1.4.0
     ## v readr   1.3.1     v forcats 0.5.0
 
-    ## -- Conflicts --------------------- tidyverse_conflicts() --
+    ## -- Conflicts ----------- tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -129,3 +129,39 @@ swm_df =
     run_time = runtime_vec
   )
 ```
+
+\#APIs
+
+Get some water data
+
+<https://data.cityofnewyork.us/Environment/Water-Consumption-In-The-New-York-City/ia2d-e54m>
+
+``` r
+nyc_water =
+  GET("https://data.cityofnewyork.us/resource/ia2d-e54m.csv") %>% 
+  content("parsed")
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   year = col_double(),
+    ##   new_york_city_population = col_double(),
+    ##   nyc_consumption_million_gallons_per_day = col_double(),
+    ##   per_capita_gallons_per_person_per_day = col_double()
+    ## )
+
+``` r
+#JSON structure?
+#Same data but diff structure
+nyc_water2 = 
+  GET("https://data.cityofnewyork.us/resource/ia2d-e54m.json") %>% 
+  content("text") %>% 
+  jsonlite::fromJSON() %>% 
+  as.tibble()
+```
+
+    ## Warning: `as.tibble()` is deprecated as of tibble 2.0.0.
+    ## Please use `as_tibble()` instead.
+    ## The signature and semantics have changed, see `?as_tibble`.
+    ## This warning is displayed once every 8 hours.
+    ## Call `lifecycle::last_warnings()` to see where this warning was generated.
