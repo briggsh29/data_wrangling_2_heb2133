@@ -46,4 +46,46 @@ drug_use_html %>%
   as_tibble()
 ```
 
+Star wars movie imdb page:
+https://www.imdb.com/list/ls070150896/
+
+(want df with title, run time, how much money it made)
+
+```{r}
+url_ = "https://www.imdb.com/list/ls070150896/"
+
+swm_html = read_html(url_)
+```
+
+Grab elements we want
+
+```{r}
+titles_vec =
+  swm_html %>%
+  html_nodes(css = ".lister-item-header a") %>% 
+  html_text()
+  
+gross_r_vec =
+  swm_html %>%
+  html_nodes(css = ".text-small:nth-child(7) span:nth-child(5)") %>% 
+  html_text()
+
+runtime_vec =
+  swm_html %>%
+  html_nodes(css = ".runtime") %>% 
+  html_text()
+
+swm_df = 
+  tibble(
+    title = titles_vec, 
+    gross_rev = gross_r_vec,
+    run_time = runtime_vec
+  )
+```
+
+
+
+```{r}
+
+```
 
