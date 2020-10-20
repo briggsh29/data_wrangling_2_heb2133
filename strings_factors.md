@@ -5,14 +5,14 @@ strings and factors
 library(tidyverse)
 ```
 
-    ## -- Attaching packages ------------------------------------ tidyverse 1.3.0 --
+    ## -- Attaching packages -------- tidyverse 1.3.0 --
 
     ## v ggplot2 3.3.2     v purrr   0.3.4
     ## v tibble  3.0.3     v dplyr   1.0.2
     ## v tidyr   1.1.2     v stringr 1.4.0
     ## v readr   1.3.1     v forcats 0.5.0
 
-    ## -- Conflicts --------------------------------------- tidyverse_conflicts() --
+    ## -- Conflicts ----------- tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -228,3 +228,19 @@ data_marj =
   #Don't want state to be:
   filter(!(State%in% c("Total U.S.", "Northeast", "Midwest", "South", "West")))
 ```
+
+### NSDUH - factors
+
+``` r
+#ggplot will implicitly treat state as a factor, alphabetical order
+data_marj %>% 
+  filter(age == "12-17") %>% 
+  mutate(
+    State = fct_reorder(State, percent)
+  ) %>% 
+  ggplot(aes(x = State, y = percent, color = year)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+
+<img src="strings_factors_files/figure-gfm/unnamed-chunk-6-1.png" width="90%" />
