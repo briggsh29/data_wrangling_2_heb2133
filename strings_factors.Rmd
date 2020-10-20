@@ -1,0 +1,119 @@
+---
+title: "strings and factors"
+output: github_document
+---
+
+```{r setting up R markdown}
+library(tidyverse)
+library(p8105.datasets)
+library(rvest)
+
+knitr::opts_chunk$set(
+  fig.width = 6, 
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis", 
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+#Strings and factors
+
+Strings from course website (vectors)
+
+```{r}
+string_vec = c("my", "name", "is", "jeff")
+
+#detect a partic pattern
+str_detect(string_vec, "jeff")
+
+str_replace(string_vec, "jeff", "Jeff")
+
+string_vec = c(
+  "i think we all rule for participating",
+  "i think i have been caught",
+  "i think this will be quite fun actually",
+  "it will be fun, i think"
+  )
+#being specific - beginngin of line
+str_detect(string_vec, "^i think")
+#Ending with
+str_detect(string_vec, "i think$")
+
+string_vec1 = c(
+  "Y'all remember Pres. HW Bush?",
+  "I saw a green bush",
+  "BBQ and Bushwalking at Molonglo Gorge",
+  "BUSH -- LIVE IN CONCERT!!"
+  )
+
+#Using regular expression; saying you can start with either B or b
+str_detect(string_vec1,"[Bb]ush")
+
+string_vec2 = c(
+  '7th inning stretch',
+  '1st half soon to begin. Texas won the toss.',
+  'she is 5 feet 4 inches tall',
+  '3AM - cant sleep :('
+  )
+#what if I want a number immed followed by letter
+str_detect(string_vec2, "[0-9][a-zA-Z]")
+
+string_vec = c(
+  'Its 7:11 in the evening',
+  'want to go to 7-11?',
+  'my flight is AA711',
+  'NetBios: scanning ip 203.167.114.66'
+  )
+#dot is special character in regular expressions that will match anything
+str_detect(string_vec, "7.11")
+
+#if I want it to interpret as literal dot
+str_detect(string_vec, "7\\.11")
+
+string_vec = c(
+  'The CI is [2, 5]',
+  ':-]',
+  ':-[',
+  'I found the answer on pages [6-7]'
+  )
+#want to detect an open bracket; slash is also special character, need \\
+str_detect(string_vec, "\\[")
+```
+
+#Factors 
+
+```{r}
+fac_vec = factor(c("male", "male", "female", "female"))
+
+#Gives us levels (we have not told it level order, assuming alphabetical)
+fac_vec
+
+as.numeric(c(fac_vec))
+```
+
+What happens if I relevel some of these
+
+```{r}
+fac_vec = fct_relevel(fac_vec, "male")
+
+fac_vec
+
+as.numeric(c(fac_vec))
+#male now corresponds to 1 and female to 2
+```
+
+## NSOUH
+
+```{r}
+
+```
+
